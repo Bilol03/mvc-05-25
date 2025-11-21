@@ -10,36 +10,47 @@ const postUser = (req, res) => {
 	if (!(user.name && user.password && user.phone))
 		return res.json({
 			message: "Ma'lumot kiritish majburiy",
+		})
+	user.id = users[users.length - 1].id + 1
+	users.push(user)
+	writeFile('./users.json', users)
+
+	res.json({
+		message: 'Successfully created',
+		users,
 	})
-    user.id = users[users.length - 1].id + 1
-    users.push(user)
-    writeFile('./users.json', users)
-
-    res.json({
-        message: "Successfully created",
-        users
-    })
-
 }
 
 const getUserById = (req, res) => {
-    let id = +req.params.id
-    const user = users.find(el => el.id == id)
-    console.log(user)
-    if (!user) return res.json({
-        status: 404,
-        message: "User not found"
-    })
+	let id = +req.params.id
+	const user = users.find((el) => el.id == id)
+	console.log(user)
+	if (!user)
+		return res.json({
+			status: 404,
+			message: 'User not found',
+		})
 
-    res.json({
-        status: 200,
-        message: "Success",
-        user
-    })
+	res.json({
+		status: 200,
+		message: 'Success',
+		user,
+	})
+}
+
+const updateUser = (request, response) => {
+	const user = users.find(el => el.id == request.params.id)
+	if (!user) return response.json({ status: 404, message: 'User not found' })
+	user.name = request.body.name ? request.body.name : user.name
+	user.phone = request.body.phone ? request.body.phone : user.phone
+	writeFile('./users.json', users)
+
+	response.json({ status: 200, message: 'Success', user })
 }
 
 module.exports = {
 	getUser,
 	postUser,
-    getUserById
+	getUserById,
+	updateUser,
 }
