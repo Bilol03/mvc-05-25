@@ -4,5 +4,17 @@
         "name": "User",
         "password": "password123",
         "phone": 998999999999
+    },
+    {
+        "name": "Ism",
+        "phone": 99899900900,
+        "password": "password123",
+        "id": 2
+    },
+    {
+        "name": "Ism",
+        "phone": 99899900900,
+        "password": "password123",
+        "id": 3
     }
 ]

@@ -9,6 +9,7 @@ function readFile(fileName){
 }
 function writeFile(fileName, data){
     fs.writeFileSync(path.join(process.cwd(), 'database', fileName), JSON.stringify(data, null, 4))
+    console.log("Successfully saved")
     return true
 }
 
